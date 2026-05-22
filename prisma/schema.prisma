@@ -1,0 +1,130 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum ProjectRole {
+  OWNER
+  MANAGER
+  MEMBER
+  VIEWER
+}
+
+enum DefectStatus {
+  OPEN
+  IN_PROGRESS
+  RESOLVED
+  CLOSED
+  REOPENED
+}
+
+enum Severity {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+
+enum Priority {
+  P3
+  P2
+  P1
+  P0
+}
+
+model User {
+  id           String        @id @default(cuid())
+  email        String        @unique
+  name         String?
+  passwordHash String
+  createdAt    DateTime      @default(now())
+
+  memberships Membership[]
+  reported    Defect[]      @relation("Reporter")
+  assigned    Defect[]      @relation("Assignee")
+  comments    Comment[]
+  activities  ActivityLog[]
+}
+
+model Project {
+  id          String   @id @default(cuid())
+  key         String   @unique
+  name        String
+  description String?
+  createdAt   DateTime @default(now())
+
+  memberships Membership[]
+  defects     Defect[]
+}
+
+model Membership {
+  id        String      @id @default(cuid())
+  userId    String
+  projectId String
+  role      ProjectRole @default(MEMBER)
+  createdAt DateTime    @default(now())
+
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, projectId])
+  @@index([projectId])
+}
+
+model Defect {
+  id          String       @id @default(cuid())
+  number      Int
+  projectId   String
+  title       String
+  description String?
+  status      DefectStatus @default(OPEN)
+  severity    Severity     @default(MEDIUM)
+  priority    Priority     @default(P2)
+  reporterId  String
+  assigneeId  String?
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  resolvedAt  DateTime?
+  closedAt    DateTime?
+
+  project    Project       @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  reporter   User          @relation("Reporter", fields: [reporterId], references: [id])
+  assignee   User?         @relation("Assignee", fields: [assigneeId], references: [id])
+  comments   Comment[]
+  activities ActivityLog[]
+
+  @@unique([projectId, number])
+  @@index([projectId, status])
+  @@index([assigneeId])
+}
+
+model Comment {
+  id        String   @id @default(cuid())
+  defectId  String
+  authorId  String
+  body      String
+  createdAt DateTime @default(now())
+
+  defect Defect @relation(fields: [defectId], references: [id], onDelete: Cascade)
+  author User   @relation(fields: [authorId], references: [id])
+
+  @@index([defectId])
+}
+
+model ActivityLog {
+  id        String   @id @default(cuid())
+  defectId  String
+  actorId   String
+  field     String
+  fromValue String?
+  toValue   String?
+  createdAt DateTime @default(now())
+
+  defect Defect @relation(fields: [defectId], references: [id], onDelete: Cascade)
+  actor  User   @relation(fields: [actorId], references: [id])
+
+  @@index([defectId])
+}
