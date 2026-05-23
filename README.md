@@ -1,6 +1,6 @@
 # Defect Tracker
 
-A defect/issue tracker with projects, role-based access, and a per-defect audit trail, built with Next.js 16 (App Router, React 19, server actions, Tailwind CSS v4), Prisma 7 with the `@prisma/adapter-pg` driver adapter, PostgreSQL, and Auth.js v5 (`next-auth@5`) using a JWT session strategy.
+A defect/issue tracker with projects, role-based access, and a per-defect audit trail, built with Next.js (App Router, React, server actions, Tailwind CSS), Prisma with the `@prisma/adapter-pg` driver adapter, PostgreSQL, and Auth.js (`next-auth`) using a JWT session strategy.
 
 ## Prerequisites
 
