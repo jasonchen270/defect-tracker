@@ -38,5 +38,6 @@ The seed creates two accounts (password `password123`) and a sample project:
 ## Usage
 
 ```bash
-npm run dev     # http://localhost:3000
+npm run dev                  # dev server, http://localhost:3000
+npm run build && npm start   # production build and serve
 ```
