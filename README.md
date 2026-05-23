@@ -70,14 +70,3 @@ Or a production build:
 ```bash
 npm run build && npm start
 ```
-
-## Scripts
-
-| Script | Purpose |
-|--------|---------|
-| `npm run dev` | Dev server |
-| `npm run build` / `npm start` | Production build / serve |
-| `npm run db:migrate` | Create + apply a migration (dev) |
-| `npm run db:deploy` | Apply existing migrations (prod/CI) |
-| `npm run db:seed` | Load demo data |
-| `npm run db:reset` | Drop, re-migrate, and re-seed |
