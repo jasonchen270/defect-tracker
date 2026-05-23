@@ -3,21 +3,6 @@
 A defect/issue tracker with projects, role-based access, and a per-defect audit
 trail. Next.js (App Router) + Prisma 7 + PostgreSQL + Auth.js (NextAuth v5).
 
-## Features
-
-- **Email + password auth** (Auth.js credentials provider, bcrypt password hashing).
-- **Projects** with a short key (e.g. `WEB`) used to prefix defect IDs (`WEB-12`).
-- **Role-based access** per project, ordered `OWNER` › `MANAGER` › `MEMBER` › `VIEWER`:
-  - Viewers read only; members file/edit defects and comment; managers add
-    members; owners change roles and remove members.
-- **Defect board** grouped by status (Open / In progress / Resolved / Closed),
-  with severity and priority badges. Reopened defects surface in the Open column.
-- **Defect detail** with editable status/severity/priority/assignee, a comment
-  thread, and an **activity log** that records every field change (who, what,
-  from → to, when) in one transaction with the update.
-- **Per-project sequential defect numbers**, allocated race-safely under the
-  `@@unique([projectId, number])` constraint.
-
 ## Stack
 
 - **Next.js 16** App Router, React 19, server actions, Tailwind CSS v4.
