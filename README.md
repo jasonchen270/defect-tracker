@@ -81,25 +81,3 @@ npm run build && npm start
 | `npm run db:deploy` | Apply existing migrations (prod/CI) |
 | `npm run db:seed` | Load demo data |
 | `npm run db:reset` | Drop, re-migrate, and re-seed |
-
-## Project structure
-
-```
-prisma/
-  schema.prisma        data model (User, Project, Membership, Defect, Comment, ActivityLog)
-  migrations/          committed SQL migrations
-  seed.ts              demo data
-src/
-  auth.ts              Auth.js config (credentials + bcrypt + JWT)
-  proxy.ts             redirect unauthenticated visitors to /login
-  lib/
-    prisma.ts          PrismaClient singleton (pg adapter)
-    rbac.ts            role ranking + project-permission guards
-    validation.ts      zod schemas
-    actions/           server actions (auth, projects, defects)
-    ui.ts              labels, badge styles, formatting
-  app/
-    login, register    auth pages
-    projects           project list + create
-    projects/[projectId]            board, settings (members), new/detail defect pages
-```
