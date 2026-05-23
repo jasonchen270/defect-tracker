@@ -33,7 +33,7 @@ trail. Next.js (App Router) + Prisma 7 + PostgreSQL + Auth.js (NextAuth v5).
 - A running PostgreSQL instance.
 
 ### 2. Configure environment
-Copy `.env.example` to `.env` and fill in:
+Create a `.env` with:
 
 ```bash
 DATABASE_URL="postgresql://USER@localhost:5432/defect_tracker"
