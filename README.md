@@ -15,7 +15,7 @@ trail. Next.js (App Router) + Prisma 7 + PostgreSQL + Auth.js (NextAuth v5).
 
 ### 1. Prerequisites
 - Node 20+
-- A running PostgreSQL instance.
+- A running PostgreSQL 16 instance.
 
 ### 2. Configure environment
 Create a `.env` with:
